@@ -2,8 +2,8 @@ import {
   Column,
   Entity,
   JoinColumn,
-  ManyToMany,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -11,85 +11,62 @@ import { Categories } from '../../categories/entities/categories.entity';
 import { OrderDetails } from '../../orders/entities/orderdetails.entity';
 import { ApiProperty } from '@nestjs/swagger';
 
-@Entity({
-  name: 'PRODUCTS',
-})
+@Entity({ name: 'PRODUCTS' })
 export class Products {
 
   @ApiProperty({
-    description: 'Identificador único del producto',
-    example: '9a4d7c11-8c91-4b33-9c2d-44f56e91b123',
+    example: 'uuid-product'
   })
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @ApiProperty({
-    description: 'Nombre del producto',
-    example: 'Laptop Lenovo ThinkPad',
-    maxLength: 50,
+    example: 'Laptop Lenovo'
   })
-  @Column({
-    type: 'varchar',
-    length: 50,
-    nullable: false,
-  })
+  @Column({ type: 'varchar', length: 50 })
   name: string;
 
   @ApiProperty({
-    description: 'Descripción detallada del producto',
-    example: 'Laptop empresarial con 16GB RAM y SSD de 512GB',
+    example: 'Laptop empresarial'
   })
-  @Column({
-    type: 'text',
-    nullable: false,
-  })
+  @Column({ type: 'text' })
   description: string;
 
   @ApiProperty({
-    description: 'Precio del producto',
-    example: 2499.99,
+    example: 2500
   })
-  @Column({
-    type: 'decimal',
-    precision: 10,
-    scale: 2,
-    nullable: false,
-  })
+  @Column({ type: 'decimal', precision: 10, scale: 2 })
   price: number;
 
   @ApiProperty({
-    description: 'Cantidad disponible en inventario',
-    example: 25,
+    example: 10
   })
-  @Column({
-    type: 'int',
-    nullable: false,
-  })
+  @Column({ type: 'int' })
   stock: number;
 
   @ApiProperty({
-    description: 'URL de la imagen del producto',
-    example: 'https://example.com/product-image.jpg',
+    example: 'https://img.com/product.jpg'
   })
   @Column({
     type: 'text',
-    default:
-      'https://us.123rf.com/450wm/momoforsale/momoforsale2105/momoforsale210500063/169348832-no-image-available-sign-isolated-on-white-background-vector-illustration.jpg',
+    default: 'https://via.placeholder.com/150'
   })
   imageURL: string;
 
   @ApiProperty({
-    description: 'Categoría a la que pertenece el producto',
+    description: 'Categoría del producto',
     type: () => Categories,
+    example: { id: 'uuid-category' }
   })
   @ManyToOne(() => Categories, (category) => category.products)
   @JoinColumn({ name: 'category_id' })
   category: Categories;
 
   @ApiProperty({
-    description: 'Lista de detalles de órdenes donde aparece el producto',
+    description: 'Detalles de orden',
     type: () => [OrderDetails],
+    example: []
   })
-  @ManyToMany(() => OrderDetails, (orderDetails) => orderDetails.products)
+  @OneToMany(() => OrderDetails, (orderDetails) => orderDetails.products)
   orderDetails: OrderDetails[];
 }

@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: ecommerce-api
+    env: docker
+    plan: free
+    branch: main
+    autoDeploy: true
+    envVars:
+      - key: DB_HOST
+        value: dpg-xxxxx   # te lo da Render
+      - key: DB_PORT
+        value: 5432
+      - key: DB_USERNAME
+        value: postgres
+      - key: DB_PASSWORD
+        value: tu_password
+      - key: DB_NAME
+        value: ecommerce
+      - key: JWT_SECRET
+        value: supersecret

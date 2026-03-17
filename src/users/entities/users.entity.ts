@@ -14,93 +14,49 @@ export class Users {
 
   @ApiProperty({
     description: 'Nombre completo del usuario',
-    example: 'Juan Pérez',
-    maxLength: 50
+    example: 'Juan Pérez'
   })
-  @Column({
-    type: 'varchar',
-    length: 50,
-    nullable: false,
-  })
+  @Column({ type: 'varchar', length: 50 })
   name: string;
 
   @ApiProperty({
     description: 'Correo electrónico del usuario',
-    example: 'juan@email.com',
-    maxLength: 50
+    example: 'juan@email.com'
   })
-  @Column({
-    type: 'varchar',
-    length: 50,
-    nullable: false,
-    unique: true,
-  })
+  @Column({ type: 'varchar', length: 50, unique: true })
   email: string;
 
   @ApiProperty({
-    description: 'Contraseña del usuario (almacenada como hash)',
-    example: '$2b$10$hashDeEjemploSeguro',
-    maxLength: 100
+    description: 'Contraseña encriptada',
+    example: '$2b$10$hashSeguro'
   })
-  @Column({
-    type: 'varchar',
-    length: 100,
-    nullable: false,
-  })
+  @Column({ type: 'varchar', length: 100 })
   password: string;
 
   @ApiProperty({
-    description: 'Número de teléfono del usuario',
     example: '+573001234567'
   })
-  @Column({
-    type: 'varchar',
-    length: 20,
-  })
+  @Column({ type: 'varchar', length: 20 })
   phone: string;
 
-  @ApiProperty({
-    description: 'País de residencia del usuario',
-    example: 'Colombia'
-  })
-  @Column({
-    type: 'varchar',
-    length: 50,
-  })
+  @ApiProperty({ example: 'Colombia' })
+  @Column({ type: 'varchar', length: 50 })
   country: string;
 
-  @ApiProperty({
-    description: 'Dirección de residencia del usuario',
-    example: 'Calle 10 #20-30'
-  })
-  @Column({
-    type: 'text',
-  })
+  @ApiProperty({ example: 'Calle 10 #20-30' })
+  @Column({ type: 'text' })
   address: string;
 
-  @ApiProperty({
-    description: 'Ciudad de residencia del usuario',
-    example: 'Medellín'
-  })
-  @Column({
-    type: 'varchar',
-    length: 50,
-  })
+  @ApiProperty({ example: 'Medellín' })
+  @Column({ type: 'varchar', length: 50 })
   city: string;
 
-  @ApiProperty({
-    description: 'Indica si el usuario tiene permisos de administrador',
-    example: false,
-    default: false
-  })
-  @Column({
-    type: 'boolean',
-    default: false,
-  })
+  @ApiProperty({ example: false })
+  @Column({ type: 'boolean', default: false })
   admin: boolean;
 
   @ApiProperty({
-    description: 'Lista de órdenes realizadas por el usuario',
+    description: 'Órdenes del usuario',
     type: () => [Orders]
   })
   @OneToMany(() => Orders, (order) => order.user)

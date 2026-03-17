@@ -1,36 +1,35 @@
-version: "3.9"
+version: '3.8'
 
 services:
-
-  app:
-    build: .
-    container_name: nest_app
-    ports:
-      - "3000:3000"
-    depends_on:
-      - database
-    environment:
-      DATABASE_HOST: database
-      DATABASE_PORT: 5432
-      DATABASE_USER: postgres
-      DATABASE_PASSWORD: postgres
-      DATABASE_NAME: ecommerce
-    volumes:
-      - .:/app
-      - /app/node_modules
-
-  database:
+  db:
     image: postgres:15
     container_name: postgres_db
     restart: always
     ports:
       - "5432:5432"
     environment:
+      POSTGRES_DB: ecommerce_pt30
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: ecommerce
+      POSTGRES_PASSWORD: 555511
     volumes:
       - postgres_data:/var/lib/postgresql/data
+
+  api:
+    build: .
+    container_name: nest_api
+    depends_on:
+      - db
+    ports:
+      - "3000:3000"
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USERNAME: postgres
+      DB_PASSWORD: 555511
+      DB_NAME: ecommerce_pt30
+    volumes:
+      - .:/app
+    command: npm run start:prod
 
 volumes:
   postgres_data:
