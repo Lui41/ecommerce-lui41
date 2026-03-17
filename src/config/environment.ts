@@ -9,18 +9,18 @@ dotenv.config({ path: envFile });
 
 export const environment = {
   NODE_ENV: process.env.NODE_ENV || 'development',
-  HOST: process.env.HOST || 'dpg-d6sr6j94tr6s7381ts90-a.oregon-postgres.render.com',
+  HOST: process.env.HOST,
   PORT: process.env.PORT || 3000,
 
-  DB_NAME: process.env.DB_NAME || 'ecommerce_pt30',
-  DB_HOST: process.env.DB_HOST || 'dpg-d6sr6j94tr6s7381ts90-a.oregon-postgres.render.com',
-  DB_PORT: process.env.DB_PORT || 5432,
-  DB_USERNAME: process.env.DB_USERNAME || 'postgres',
-  DB_PASSWORD: process.env.DB_PASSWORD || '555511',
+  DB_NAME: process.env.DB_NAME,
+  DB_HOST: process.env.DB_HOST,
+  DB_PORT: process.env.DB_PORT,
+  DB_USERNAME: process.env.DB_USERNAME,
+  DB_PASSWORD: process.env.DB_PASSWORD,
 
-  JWT_SECRET: process.env.JWT_SECRET || 'secret',
+  JWT_SECRET: process.env.JWT_SECRET,
 
-  CLOUDINARY_CLOUD_NAME: process.env.CLOUDINARY_CLOUD_NAME || '',
-  CLOUDINARY_API_KEY: process.env.CLOUDINARY_API_KEY || '',
-  CLOUDINARY_API_SECRET: process.env.CLOUDINARY_API_SECRET || '',
+  CLOUDINARY_CLOUD_NAME: process.env.CLOUDINARY_CLOUD_NAME,
+  CLOUDINARY_API_KEY: process.env.CLOUDINARY_API_KEY,
+  CLOUDINARY_API_SECRET: process.env.CLOUDINARY_API_SECRET,
 };

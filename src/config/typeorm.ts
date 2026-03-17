@@ -1,28 +1,11 @@
 import { registerAs } from '@nestjs/config';
-import { environment } from './environment';
 
-const isProduction = environment.NODE_ENV === 'production';
-
-const typeOrmConfig = {
+export const typeOrmConfigService = registerAs('typeorm', () => ({
   type: 'postgres',
-  database: environment.DB_NAME,
-  host: environment.DB_HOST,
-  port: Number(environment.DB_PORT),
-  username: environment.DB_USERNAME,
-  password: environment.DB_PASSWORD,
-  entities: [__dirname + '/../**/*.entity{.ts,.js}'],
-  migrations: [__dirname + '/../migrations/*{.ts,.js}'],
+  url: process.env.DATABASE_URL,
   autoLoadEntities: true,
-  logging: false,
   synchronize: true,
-  dropSchema: false,
-
-  // SOLO activar SSL en producción (Render)
-  ...(isProduction && {
-    ssl: {
-      rejectUnauthorized: false,
-    },
-  }),
-};
-
-export const typeOrmConfigService = registerAs('typeorm', () => typeOrmConfig);
+  ssl: {
+    rejectUnauthorized: false,
+  },
+}));
