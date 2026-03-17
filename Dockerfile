@@ -42,4 +42,4 @@ HEALTHCHECK --interval=30s --timeout=3s --start-period=40s --retries=3 \
   CMD node -e "require('http').get('http://localhost:3000', (r) => {if (r.statusCode !== 200) throw new Error(r.statusCode)})" || exit 1
 
 # Start application
-CMD ["node", "dist/main"]
+CMD ["node", "dist/main.js"]
