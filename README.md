@@ -1,98 +1,128 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+<div align="center">
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+<img src="https://capsule-render.vercel.app/api?type=waving&color=3178C6&height=180&section=header&fontColor=ffffff&animation=fadeIn" />
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+# 🛒 E-Commerce Tecnológico — Backend
+### Proyecto Integrador M4 | Henry Bootcamp
 
-## Description
+![TypeScript](https://img.shields.io/badge/TypeScript-98%25-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
+![Henry](https://img.shields.io/badge/Henry-Proyecto%20M4-black?style=for-the-badge)
+![Individual](https://img.shields.io/badge/Desarrollo-Individual-2E75B6?style=for-the-badge)
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+</div>
 
-## Project setup
+---
 
-```bash
-$ npm install
+## 📋 Descripción
+
+API REST para la gestión completa de un e-commerce de productos tecnológicos. Incluye autenticación JWT, gestión de usuarios con roles, productos, categorías, órdenes y carga de imágenes. Documentada con Swagger y desarrollada con arquitectura modular en NestJS.
+
+---
+
+## ✨ Funcionalidades principales
+
+- 🔐 **Autenticación JWT** con registro, login y control de roles
+- 👤 **Gestión de usuarios** con soft delete (campo `isActive`)
+- 📦 **Productos y categorías** con precarga de datos via seeders
+- 🛍️ **Órdenes** con detalle de productos asociados
+- 🖼️ **Carga de imágenes** para productos
+- 🔒 **Guards y middlewares** para protección de rutas y logging
+- 📄 **Documentación interactiva** con Swagger
+
+---
+
+## 🏗️ Arquitectura modular
+
+```
+src/
+├── users/          # Gestión de usuarios
+├── auth/           # Autenticación y autorización
+├── products/       # Gestión de productos
+├── categories/     # Gestión de categorías
+├── orders/         # Creación y gestión de órdenes
+├── order-details/  # Detalle de cada orden
+└── files/          # Carga de imágenes
 ```
 
-## Compile and run the project
+---
+
+## 🛠️ Tech Stack
+
+<div align="center">
+
+![NestJS](https://img.shields.io/badge/NestJS-E0234E?style=for-the-badge&logo=nestjs&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
+![TypeORM](https://img.shields.io/badge/TypeORM-FE0803?style=for-the-badge&logo=typeorm&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)
+![Swagger](https://img.shields.io/badge/Swagger-85EA2D?style=for-the-badge&logo=swagger&logoColor=black)
+![JWT](https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=jsonwebtokens&logoColor=white)
+![Bcrypt](https://img.shields.io/badge/Bcrypt-338?style=for-the-badge)
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
+
+</div>
+
+---
+
+## 🚀 Instalación y uso local
 
 ```bash
-# development
-$ npm run start
+# Clonar el repositorio
+git clone https://github.com/FlorenciaCracogna/Ecommerce-backend-M4
+cd Ecommerce-backend-M4/ecommerce-florencia-cracogna
 
-# watch mode
-$ npm run start:dev
+# Instalar dependencias
+npm install
 
-# production mode
-$ npm run start:prod
+# Configurar variables de entorno
+cp .env.development.example .env.development
+# Completar las variables en el archivo .env.development
+
+# Correr en desarrollo
+npm run start:dev
 ```
 
-## Run tests
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+### Documentación Swagger
+Una vez levantado el proyecto, la API está disponible en:
+```
+http://localhost:3000/api
 ```
 
-## Deployment
+---
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+## ⚙️ Variables de entorno
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
-
-```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+### `.env.development`
+```env
+HOST=
+PORT=
+DB_HOST=
+DB_PORT=
+DB_USERNAME=
+DB_PASSWORD=
+DB_NAME=
+JWT_SECRET=
+CLOUDINARY_CLOUD_NAME=
+CLOUDINARY_API_KEY=
+CLOUDINARY_API_SECRET=
+POSTGRES_PASSWORD=
+POSTGRES_DB=
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+---
 
-## Resources
+## 📝 Notas técnicas
 
-Check out a few resources that may come in handy when working with NestJS:
+- Las contraseñas se almacenan encriptadas con **Bcrypt**
+- No se realiza eliminación física de usuarios — se usa **soft delete** con campo `isActive`
+- Los seeders cargan datos iniciales de productos y categorías al iniciar la app, evitando duplicados
+- Se implementan **DTOs** para validación de datos de entrada
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+---
 
-## Support
+<div align="center">
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+**Desarrollado por [Florencia Cracogna](https://github.com/FlorenciaCracogna) — Henry Bootcamp 2026**
 
-## Stay in touch
+<img src="https://capsule-render.vercel.app/api?type=waving&color=3178C6&height=100&section=footer" />
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+</div>
