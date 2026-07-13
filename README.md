@@ -1,7 +1,6 @@
 <div align="center">
 
-<img src="<img width="1979" height="794" alt="ChatGPT Image 28 abr 2026, 02_42_54 p m" src="https://github.com/user-attachments/assets/9559b001-884d-45e7-9578-b044cd2e0fb6" />
-" />
+<img src=" width="1979" height="794" alt="ChatGPT Image 28 abr 2026, 02_42_54 p m" src="https://github.com/user-attachments/assets/9559b001-884d-45e7-9578-b044cd2e0fb6" />
 
 # 🛒 E-Commerce Tecnológico — Backend
 ### Proyecto Integrador M4 | Henry Bootcamp
