@@ -1,6 +1,6 @@
 <div align="center">
 
-![Uploading ChatGPT Image 28 abr 2026, 02_42_54 p.m..png…]()
+<img width="1979" height="794" alt="ChatGPT Image 28 abr 2026, 02_42_54 p m" src="https://github.com/user-attachments/assets/9e72dffd-e8b3-42a3-89d0-9a13f3324daa" />
 
 
 # 🛒 E-Commerce Tecnológico — Backend
@@ -16,19 +16,20 @@
 
 ## 📋 Descripción
 
-API REST para la gestión completa de un e-commerce de productos tecnológicos. Incluye autenticación JWT, gestión de usuarios con roles, productos, categorías, órdenes y carga de imágenes. Documentada con Swagger y desarrollada con arquitectura modular en NestJS.
+Diseño e implementación de una API REST para un e-commerce, utilizando NestJS y una arquitectura modular. Incluye autenticación y autorización con JWT, control de acceso basado en roles (RBAC), gestión de usuarios, productos, categorías, órdenes, carga de imágenes y documentación automática con Swagger.
 
 ---
 
-## ✨ Funcionalidades principales
+## ✨ Características
 
-- 🔐 **Autenticación JWT** con registro, login y control de roles
-- 👤 **Gestión de usuarios** con soft delete (campo `isActive`)
-- 📦 **Productos y categorías** con precarga de datos via seeders
-- 🛍️ **Órdenes** con detalle de productos asociados
-- 🖼️ **Carga de imágenes** para productos
-- 🔒 **Guards y middlewares** para protección de rutas y logging
-- 📄 **Documentación interactiva** con Swagger
+- 🔐 Autenticación y autorización con **JWT**.
+- 👥 Gestión de usuarios con **soft delete** y control de roles.
+- 📦 CRUD completo de **productos** y **categorías**.
+- 🛒 Creación y administración de **órdenes** con múltiples productos.
+- 🖼️ Carga y gestión de imágenes de productos.
+- 🛡️ Protección de endpoints mediante **Guards** y **Middlewares**.
+- 🌱 Inicialización de la base de datos con **Seeders**.
+- 📖 Documentación automática e interactiva con **Swagger**.
 
 ---
 
@@ -122,8 +123,7 @@ POSTGRES_DB=
 
 <div align="center">
 
-**Desarrollado por [Florencia Cracogna](https://github.com/FlorenciaCracogna) — Henry Bootcamp 2026**
+**Desarrollado por [Luis Alvarez](https://github.com/Lui41) — Henry Bootcamp 2026**
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=3178C6&height=100&section=footer" />
 
 </div>
