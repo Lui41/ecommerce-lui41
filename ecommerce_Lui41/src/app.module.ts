@@ -24,25 +24,33 @@ import { JwtModule } from '@nestjs/jwt';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
+      envFilePath: '.env.development',
       load: [typeOrmConfig],
     }),
+
     TypeOrmModule.forRootAsync({
       inject: [ConfigService],
-      useFactory: (configService: ConfigService) => {
-        return configService.get('typeorm')!;
-      },
+      useFactory: (configService: ConfigService) =>
+        configService.get('typeorm')!,
     }),
+
+    JwtModule.registerAsync({
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => ({
+        global: true,
+        secret: configService.get<string>('JWT_SECRET'),
+        signOptions: {
+          expiresIn: '1h',
+        },
+      }),
+    }),
+
     UsersModule,
     ProductsModule,
     AuthModule,
     CategoriesModule,
     OrdersModule,
     FilesModule,
-    JwtModule.register({
-      global: true,
-      secret: process.env.JWT_SECRET,
-      signOptions: { expiresIn: '1h' },
-    }),
   ],
   controllers: [AppController],
   providers: [AppService],
@@ -52,6 +60,7 @@ export class AppModule implements NestModule, OnApplicationBootstrap {
     private readonly categoriesService: CategoriesService,
     private readonly productsService: ProductsService,
   ) {}
+
   configure(consumer: MiddlewareConsumer) {
     consumer.apply(LoggerMiddleware).forRoutes('*');
   }

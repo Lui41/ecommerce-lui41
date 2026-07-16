@@ -6,9 +6,6 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  const HOST = process.env.HOST;
-  const PORT = process.env.PORT;
-
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
@@ -20,7 +17,7 @@ async function bootstrap() {
   const swaggerConfig = new DocumentBuilder()
     .setTitle('Ecommerce FT71')
     .setDescription(
-      'Esta es una API construida con Nest para ser empleada en el Proyecto Integrador del Módulo 4 de Henry, en la especialidad de Backend',
+      'API construida con NestJS para la plataforma Ecommerce.',
     )
     .setVersion('1.0.0')
     .addBearerAuth()
@@ -30,8 +27,11 @@ async function bootstrap() {
 
   SwaggerModule.setup('api', app, document);
 
-  await app.listen(process.env.PORT ?? 3000);
-  console.log(`Servidor escuchando en http://${HOST}:${PORT}`);
+  const port = Number(process.env.PORT) || 3000;
+
+  await app.listen(port);
+
+  console.log(`🚀 Servidor iniciado en el puerto ${port}`);
 }
 
 bootstrap();
