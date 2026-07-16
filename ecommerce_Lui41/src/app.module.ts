@@ -23,7 +23,6 @@ import { ProductsService } from './products/products.service';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: '.env.development',
       load: [typeOrmConfig],
     }),
 
