@@ -1,17 +1,16 @@
 import { registerAs } from '@nestjs/config';
-import { DataSource, DataSourceOptions } from 'typeorm';
+import { TypeOrmModuleOptions } from '@nestjs/typeorm';
+import { DataSource } from 'typeorm';
 
-const config: DataSourceOptions = {
+const config: TypeOrmModuleOptions = {
   type: 'postgres',
   url: process.env.DATABASE_URL,
 
   autoLoadEntities: true,
+
   synchronize: false,
   logging: false,
   dropSchema: false,
-
-  entities: ['dist/**/*.entity{.ts,.js}'],
-  migrations: ['dist/migrations/*{.js,.ts}'],
 
   ssl:
     process.env.NODE_ENV === 'production'
@@ -23,4 +22,15 @@ const config: DataSourceOptions = {
 
 export default registerAs('typeorm', () => config);
 
-export const connectionSource = new DataSource(config);
+export const connectionSource = new DataSource({
+  type: 'postgres',
+  url: process.env.DATABASE_URL,
+  synchronize: false,
+  logging: false,
+  ssl:
+    process.env.NODE_ENV === 'production'
+      ? {
+          rejectUnauthorized: false,
+        }
+      : false,
+});
