@@ -17,8 +17,8 @@ import {
 export class OrderDetail {
   @PrimaryGeneratedColumn('uuid')
   @ApiProperty({
-    description: 'El id debe ser de tipo UUID versión 4',
-    example: '...',
+    description: 'Order detail UUID v4',
+    example: '7c9e6679-7425-40de-944b-e07fc1f90ae7',
   })
   id!: string;
 
@@ -29,8 +29,8 @@ export class OrderDetail {
     nullable: false,
   })
   @ApiProperty({
-    description: 'Debe ser un número decimal de hasta 10 dígitos',
-    example: '50.00',
+    description: 'Total price for the order',
+    example: 50.0,
   })
   price!: number;
 
@@ -38,9 +38,17 @@ export class OrderDetail {
     nullable: false,
   })
   @JoinColumn({ name: 'order_id' })
+  @ApiProperty({
+    description: 'Parent order',
+    type: () => Order,
+  })
   order!: Order;
 
   @ManyToMany(() => Product, (product) => product.orderDetails)
   @JoinTable()
+  @ApiProperty({
+    description: 'Products included in the order detail',
+    type: () => [Product],
+  })
   products!: Product[];
 }

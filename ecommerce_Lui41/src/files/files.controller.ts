@@ -10,36 +10,38 @@ import {
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
-import { FilesService } from './files.service';
 import { FileInterceptor } from '@nestjs/platform-express';
-import multer from 'multer';
-import { AuthGuard } from '../auth/guards/auth.guard';
-import { RolesGuard } from '../auth/guards/roles.guard';
-import { Roles } from '../decorators/roles.decorator';
-import { Role } from '../auth/enums/roles.enum';
 import {
   ApiBearerAuth,
   ApiBody,
   ApiConsumes,
   ApiOperation,
   ApiParam,
-  ApiResponse,
+  ApiTags,
 } from '@nestjs/swagger';
+import multer from 'multer';
+import { AuthGuard } from '../auth/guards/auth.guard';
+import { RolesGuard } from '../auth/guards/roles.guard';
+import { Roles } from '../decorators/roles.decorator';
+import { Role } from '../auth/enums/roles.enum';
+import { FilesService } from './files.service';
 import { Product } from '../products/entities/products.entity';
 
+@ApiTags('Files')
 @Controller('files')
 export class FilesController {
   constructor(private readonly filesService: FilesService) {}
 
   @Put('uploadImage/:id')
-  @ApiBearerAuth()
+  @ApiBearerAuth('access-token')
   @ApiOperation({
-    summary: 'Carga imágen de un producto, a través de Cloudinary',
+    summary: 'Upload product image',
+    description: 'Uploads an image to Cloudinary and stores the URL in the product.',
   })
   @ApiParam({
     name: 'id',
-    description: 'Id del producto a modificar',
-    type: String,
+    description: 'Product UUID v4',
+    example: '7c9e6679-7425-40de-944b-e07fc1f90ae7',
   })
   @ApiConsumes('multipart/form-data')
   @ApiBody({
@@ -52,18 +54,6 @@ export class FilesController {
         },
       },
     },
-  })
-  @ApiResponse({
-    status: 200,
-    description: 'Imágen cargada correctamente',
-  })
-  @ApiResponse({
-    status: 400,
-    description: 'Error al cargar imágen',
-  })
-  @ApiResponse({
-    status: 404,
-    description: 'No encontró producto con el id enviado',
   })
   @Roles(Role.Admin)
   @UseGuards(AuthGuard, RolesGuard)
@@ -79,7 +69,7 @@ export class FilesController {
         validators: [
           new MaxFileSizeValidator({
             maxSize: 200 * 1024,
-            message: 'La imágen supera el tamaño máximo permitido de 200KB',
+            message: 'The image is larger than the allowed 200KB limit',
           }),
           new FileTypeValidator({
             fileType: /^image\/(jpg|jpeg|png|webp)$/,

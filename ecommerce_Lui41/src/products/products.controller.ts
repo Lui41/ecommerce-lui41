@@ -1,15 +1,25 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
-  Post,
-  Query,
-  Put,
-  Delete,
-  UseGuards,
   ParseUUIDPipe,
+  Post,
+  Put,
+  Query,
+  UseGuards,
 } from '@nestjs/common';
+import {
+  ApiBearerAuth,
+  ApiBadRequestResponse,
+  ApiCreatedResponse,
+  ApiForbiddenResponse,
+  ApiOkResponse,
+  ApiOperation,
+  ApiQuery,
+  ApiTags,
+} from '@nestjs/swagger';
 import { ProductsService } from './products.service';
 import { AuthGuard } from '../auth/guards/auth.guard';
 import { CreateProductDto } from './dto/CreateProduct.dto';
@@ -17,26 +27,37 @@ import { UpdateProductDto } from './dto/UpdateProduct.dto';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { Roles } from '../decorators/roles.decorator';
 import { Role } from '../auth/enums/roles.enum';
-import { ApiBearerAuth, ApiQuery } from '@nestjs/swagger';
 import { GetProductsResponseDto } from './dto/GetProductsResponse.dto';
 import { Product } from './entities/products.entity';
 
+@ApiTags('Products')
 @Controller('products')
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
 
   @Get()
+  @ApiOperation({
+    summary: 'List products',
+    description: 'Returns active products with pagination.',
+  })
   @ApiQuery({
     name: 'page',
     required: false,
-    type: String,
-    description: 'Número de página',
+    type: Number,
+    description: 'Page number',
+    example: 1,
   })
   @ApiQuery({
     name: 'limit',
     required: false,
-    type: String,
-    description: 'Cantidad de registros por página',
+    type: Number,
+    description: 'Records per page',
+    example: 5,
+  })
+  @ApiOkResponse({
+    description: 'Products list',
+    type: GetProductsResponseDto,
+    isArray: true,
   })
   getAllProducts(
     @Query('page') page?: string,
@@ -52,27 +73,65 @@ export class ProductsController {
   }
 
   @Get(':id')
+  @ApiOperation({
+    summary: 'Get product by id',
+    description: 'Returns a single active product.',
+  })
+  @ApiOkResponse({
+    description: 'Product found',
+    type: Product,
+  })
   getProductById(@Param('id', ParseUUIDPipe) id: string): Promise<Product> {
     return this.productsService.getProductsById(id);
   }
 
   @Post()
+  @ApiBearerAuth('access-token')
+  @ApiOperation({
+    summary: 'Create product',
+    description: 'Creates a new product in a valid category. Admin only.',
+  })
+  @ApiCreatedResponse({
+    description: 'Product created successfully',
+    type: Product,
+  })
+  @ApiBadRequestResponse({
+    description: 'Validation error or invalid category',
+  })
+  @ApiForbiddenResponse({
+    description: 'Admin role required',
+  })
   @Roles(Role.Admin)
   @UseGuards(AuthGuard, RolesGuard)
-  @ApiBearerAuth()
   createProduct(@Body() product: CreateProductDto): Promise<Product> {
     return this.productsService.createProduct(product);
   }
 
   @Post('seeder')
+  @ApiOperation({
+    summary: 'Seed products',
+    description: 'Loads initial products from the local JSON file.',
+  })
+  @ApiCreatedResponse({
+    description: 'Seed completed',
+    type: Product,
+    isArray: true,
+  })
   seedProducts(): Promise<Product[]> {
     return this.productsService.addProducts();
   }
 
   @Put(':id')
+  @ApiBearerAuth('access-token')
+  @ApiOperation({
+    summary: 'Update product',
+    description: 'Updates a product by id. Admin only.',
+  })
+  @ApiOkResponse({
+    description: 'Product updated successfully',
+  })
   @Roles(Role.Admin)
   @UseGuards(AuthGuard, RolesGuard)
-  @ApiBearerAuth()
   updateProduct(
     @Param('id', ParseUUIDPipe) id: string,
     @Body() productData: UpdateProductDto,
@@ -81,9 +140,16 @@ export class ProductsController {
   }
 
   @Delete(':id')
+  @ApiBearerAuth('access-token')
+  @ApiOperation({
+    summary: 'Delete product',
+    description: 'Soft deletes a product by id. Admin only.',
+  })
+  @ApiOkResponse({
+    description: 'Product deleted successfully',
+  })
   @Roles(Role.Admin)
   @UseGuards(AuthGuard, RolesGuard)
-  @ApiBearerAuth()
   deleteProduct(
     @Param('id', ParseUUIDPipe) id: string,
   ): Promise<{ message: string }> {

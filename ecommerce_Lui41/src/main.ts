@@ -15,23 +15,35 @@ async function bootstrap() {
   );
 
   const swaggerConfig = new DocumentBuilder()
-    .setTitle('Ecommerce FT71')
+    .setTitle('Ecommerce Lui41 API')
     .setDescription(
-      'API construida con NestJS para la plataforma Ecommerce.',
+      'REST API for ecommerce products, categories, users, orders and files.',
     )
     .setVersion('1.0.0')
-    .addBearerAuth()
+    .addBearerAuth(
+      {
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT',
+        description: 'Paste the JWT token returned by /auth/signin',
+      },
+      'access-token',
+    )
     .build();
 
   const document = SwaggerModule.createDocument(app, swaggerConfig);
 
-  SwaggerModule.setup('api', app, document);
+  SwaggerModule.setup('api', app, document, {
+    swaggerOptions: {
+      persistAuthorization: true,
+    },
+  });
 
   const port = Number(process.env.PORT) || 3000;
 
   await app.listen(port);
 
-  console.log(`🚀 Servidor iniciado en el puerto ${port}`);
+  console.log(`Server started on port ${port}`);
 }
 
 bootstrap();

@@ -15,7 +15,8 @@ import {
 export class Product {
   @PrimaryGeneratedColumn('uuid')
   @ApiProperty({
-    description: 'UUID V4 generado por la BBDD',
+    description: 'Product UUID v4',
+    example: '7c9e6679-7425-40de-944b-e07fc1f90ae7',
   })
   id!: string;
 
@@ -24,7 +25,8 @@ export class Product {
     nullable: false,
   })
   @ApiProperty({
-    description: 'El nombre puede tener hasta 50 caracteres',
+    description: 'Product name',
+    example: 'Wireless Mouse',
   })
   name!: string;
 
@@ -33,7 +35,8 @@ export class Product {
     nullable: false,
   })
   @ApiProperty({
-    description: 'Debe ser un texto con la descripción del producto',
+    description: 'Product description',
+    example: 'Ergonomic wireless mouse for everyday use',
   })
   description!: string;
 
@@ -44,8 +47,8 @@ export class Product {
     nullable: false,
   })
   @ApiProperty({
-    description: 'El precio debe ser un número decimal de hasta 10 dígitos',
-    example: '50.00',
+    description: 'Product price',
+    example: 50.0,
   })
   price!: number;
 
@@ -54,8 +57,8 @@ export class Product {
     nullable: false,
   })
   @ApiProperty({
-    description: 'Debe ser un número entero',
-    example: '20',
+    description: 'Available stock',
+    example: 20,
   })
   stock!: number;
 
@@ -65,8 +68,8 @@ export class Product {
       'https://img.freepik.com/foto-gratis/signo-ventas-viernes-negro-luz-neon_23-2151833076.jpg?semt=ais_incoming&w=740&q=80',
   })
   @ApiProperty({
-    description:
-      'Debe ser una URL válida, que finalice en .jpg/.jpeg/.png/.webp',
+    description: 'Image URL',
+    example: 'https://example.com/product-image.jpg',
   })
   imgUrl!: string;
 
@@ -75,16 +78,23 @@ export class Product {
     default: true,
   })
   @ApiProperty({
-    description:
-      'Define si el producto esta Activo o no, por defecto se inicia como "isActive = true"',
+    description: 'True when the product is active',
   })
   isActive!: boolean;
 
   @ManyToOne(() => Category, (category) => category.products, {
     nullable: false,
   })
+  @ApiProperty({
+    description: 'Product category',
+    type: () => Category,
+  })
   category!: Category;
 
   @ManyToMany(() => OrderDetail, (orderDetail) => orderDetail.products)
+  @ApiProperty({
+    description: 'Order details that include the product',
+    type: () => [OrderDetail],
+  })
   orderDetails!: OrderDetail[];
 }

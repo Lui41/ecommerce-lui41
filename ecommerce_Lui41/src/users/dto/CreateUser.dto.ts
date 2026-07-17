@@ -16,69 +16,67 @@ export class CreateUserDto {
     message: 'El nombre debe tener entre 3 y 80 caracteres',
   })
   @ApiProperty({
-    description:
-      'Este campo debe incluir Nombre y Apellido, y tener tener entre 3 y 80 caracteres',
-    example: 'Test 01',
+    description: 'Full name with 3 to 80 characters',
+    example: 'Test User',
   })
   name!: string;
 
   @IsNotEmpty({ message: 'El email es obligatorio' })
   @IsString({ message: 'El email debe ser un texto' })
-  @IsEmail({}, { message: 'El email debe tener un formato válido' })
+  @IsEmail({}, { message: 'El email debe tener un formato valido' })
   @ApiProperty({
-    description: 'El correo debe ser una dirección de correo válida',
+    description: 'Valid email address',
     example: 'test01@mail.com',
   })
   email!: string;
 
-  @IsNotEmpty({ message: 'La contraseña es obligatoria' })
-  @IsString({ message: 'La contraseña debe ser un texto' })
+  @IsNotEmpty({ message: 'La contrasena es obligatoria' })
+  @IsString({ message: 'La contrasena debe ser un texto' })
   @Length(8, 15, {
-    message: 'La contraseña debe tener entre 8 y 15 caracteres',
+    message: 'La contrasena debe tener entre 8 y 15 caracteres',
   })
   @Matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).+$/, {
     message:
-      'La contraseña debe tener al menos una minúscula, una mayúscula, un número y un caracter especial (!@#$%^&*)',
+      'La contrasena debe tener al menos una minuscula, una mayuscula, un numero y un caracter especial (!@#$%^&*)',
   })
   @ApiProperty({
     description:
-      'La contraseña debe tener entre 8 y 15 caracteres, y contener al menos una minúscula, una mayúscula, un número y un caracter especial (!@#$%^&*)',
+      'Password with 8 to 15 characters, including lowercase, uppercase, number and special character',
     example: 'Test123!',
   })
   password!: string;
 
-  @IsNotEmpty({ message: 'La dirección es obligatoria' })
-  @IsString({ message: 'La dirección debe ser un texto' })
+  @IsNotEmpty({ message: 'La direccion es obligatoria' })
+  @IsString({ message: 'La direccion debe ser un texto' })
   @Length(3, 80, {
-    message: 'La dirección debe tener entre 3 y 80 caracteres',
+    message: 'La direccion debe tener entre 3 y 80 caracteres',
   })
   @ApiProperty({
-    description: 'La dirección debe tener entre 3 y 80 caracteres',
-    example: 'TestAddress 123',
+    description: 'Address with 3 to 80 characters',
+    example: 'Test Address 123',
   })
   address!: string;
 
-  @IsNotEmpty({ message: 'El teléfono es obligatorio' })
+  @IsNotEmpty({ message: 'El telefono es obligatorio' })
   @Type(() => Number)
   @IsNumber(
     { allowInfinity: false, allowNaN: false },
-    { message: 'El teléfono debe ser un número' },
+    { message: 'El telefono debe ser un numero' },
   )
   @ApiProperty({
-    description:
-      'El teléfono debe tener solo números y como mínimo 10 caracteres',
-    example: '3624123456',
+    description: 'Phone number with at least 10 digits',
+    example: 3624123456,
   })
   phone!: number;
 
-  @IsNotEmpty({ message: 'El país es obligatorio' })
-  @IsString({ message: 'El país debe ser un texto' })
+  @IsNotEmpty({ message: 'El pais es obligatorio' })
+  @IsString({ message: 'El pais debe ser un texto' })
   @Length(5, 20, {
-    message: 'El país debe tener entre 5 y 20 caracteres',
+    message: 'El pais debe tener entre 5 y 20 caracteres',
   })
   @ApiProperty({
-    description: 'El país debe tener entre 5 y 20 caracteres',
-    example: 'TestCountry',
+    description: 'Country with 5 to 20 characters',
+    example: 'Argentina',
   })
   country!: string;
 
@@ -88,8 +86,8 @@ export class CreateUserDto {
     message: 'La ciudad debe tener entre 5 y 20 caracteres',
   })
   @ApiProperty({
-    description: 'La ciudad debe tener entre 5 y 20 caracteres',
-    example: 'TestCity',
+    description: 'City with 5 to 20 characters',
+    example: 'Buenos Aires',
   })
   city!: string;
 }

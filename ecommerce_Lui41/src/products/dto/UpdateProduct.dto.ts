@@ -1,4 +1,4 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiPropertyOptional } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import {
   IsInt,
@@ -11,39 +11,38 @@ import {
 
 export class UpdateProductDto {
   @IsOptional()
-  @IsNumber({}, { message: 'El precio debe ser un número' })
+  @IsNumber({}, { message: 'El precio debe ser un numero' })
   @Type(() => Number)
   @Min(0, { message: 'El precio no puede ser negativo' })
-  @ApiProperty({
-    description: 'El precio debe ser un número positivo y decimal',
-    example: '100.00',
+  @ApiPropertyOptional({
+    description: 'Positive decimal price',
+    example: 100.0,
   })
   price?: number;
 
   @IsOptional()
-  @IsInt({ message: 'El stock debe ser un número' })
+  @IsInt({ message: 'El stock debe ser un numero' })
   @Type(() => Number)
   @Min(0, { message: 'El stock no puede ser negativo' })
-  @ApiProperty({
-    description: 'El stock debe ser un número entero y positivo',
-    example: '20',
+  @ApiPropertyOptional({
+    description: 'Positive integer stock quantity',
+    example: 20,
   })
   stock?: number;
 
   @IsOptional()
   @IsString({ message: 'La URL de la imagen debe ser texto' })
-  @ApiProperty({
-    description:
-      'La imágen debe ser un formáto válido, que termine en .jpg/.jpeg/.png/.webp',
-    example: 'http://......jpg',
+  @ApiPropertyOptional({
+    description: 'Optional image URL ending in jpg, jpeg, png or webp',
+    example: 'https://example.com/product-image.jpg',
   })
   imgUrl?: string;
 
   @IsOptional()
-  @IsUUID('4', { message: 'El id de la categoría debe ser un UUID válido' })
-  @ApiProperty({
-    description: 'El id debe ser de tipo UUID versión 4',
-    example: '...',
+  @IsUUID('4', { message: 'El id de la categoria debe ser un UUID valido' })
+  @ApiPropertyOptional({
+    description: 'Category UUID v4',
+    example: '7c9e6679-7425-40de-944b-e07fc1f90ae7',
   })
   categoryId?: string;
 }

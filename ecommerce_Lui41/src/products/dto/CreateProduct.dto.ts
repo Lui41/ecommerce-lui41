@@ -14,54 +14,53 @@ export class CreateProductDto {
   @IsNotEmpty({ message: 'El nombre del producto es obligatorio' })
   @IsString({ message: 'El nombre debe ser un texto' })
   @ApiProperty({
-    description: 'El nombre del producto debe tener al menos 3 caracteres',
-    example: 'Producto Test',
+    description: 'Product name with at least 3 characters',
+    example: 'Wireless Mouse',
   })
   name!: string;
 
-  @IsNotEmpty({ message: 'La descripción del producto es obligatoria' })
-  @IsString({ message: 'La descripción debe ser un texto' })
+  @IsNotEmpty({ message: 'La descripcion del producto es obligatoria' })
+  @IsString({ message: 'La descripcion debe ser un texto' })
   @ApiProperty({
-    description:
-      'La descripción del producto debe tener al menos 20 caracteres',
-    example: 'Descripción producto Test',
+    description: 'Product description with at least 20 characters',
+    example: 'Ergonomic wireless mouse for everyday use',
   })
   description!: string;
 
   @IsNotEmpty({ message: 'El precio es obligatorio' })
   @Type(() => Number)
-  @IsNumber({}, { message: 'El precio debe ser un número' })
+  @IsNumber({}, { message: 'El precio debe ser un numero' })
   @Min(0, { message: 'El precio no puede ser negativo' })
   @ApiProperty({
-    description: 'El precio debe ser un número positivo y decimal',
-    example: '50.00',
+    description: 'Positive decimal price',
+    example: 50.0,
   })
   price!: number;
 
   @IsNotEmpty({ message: 'El stock es obligatorio' })
   @Type(() => Number)
-  @IsInt({ message: 'El stock debe ser un número entero' })
+  @IsInt({ message: 'El stock debe ser un numero entero' })
   @Min(0, { message: 'El stock no puede ser negativo' })
   @ApiProperty({
-    description: 'El stock debe ser un número entero y positivo',
-    example: '10',
+    description: 'Positive integer stock quantity',
+    example: 10,
   })
   stock!: number;
 
   @IsOptional()
-  @IsString({ message: 'La URL de la imágen debe ser texto' })
+  @IsString({ message: 'La URL de la imagen debe ser texto' })
   @ApiProperty({
-    description:
-      'La imágen debe ser un formáto válido, que termine en .jpg/.jpeg/.png/.webp',
-    example: 'http://......jpg',
+    description: 'Optional image URL ending in jpg, jpeg, png or webp',
+    example: 'https://example.com/product-image.jpg',
+    required: false,
   })
   imgUrl?: string;
 
-  @IsNotEmpty({ message: 'La categoría es obligatoria' })
-  @IsUUID('4', { message: 'El id de la categoría debe ser un UUID válido' })
+  @IsNotEmpty({ message: 'La categoria es obligatoria' })
+  @IsUUID('4', { message: 'El id de la categoria debe ser un UUID valido' })
   @ApiProperty({
-    description: 'El id debe ser de tipo UUID versión 4',
-    example: '...',
+    description: 'Category UUID v4',
+    example: '7c9e6679-7425-40de-944b-e07fc1f90ae7',
   })
   categoryId!: string;
 }

@@ -15,7 +15,8 @@ import {
 export class Order {
   @PrimaryGeneratedColumn('uuid')
   @ApiProperty({
-    description: 'UUID V4 generado por la BBDD',
+    description: 'Order UUID v4',
+    example: '7c9e6679-7425-40de-944b-e07fc1f90ae7',
   })
   id!: string;
 
@@ -24,14 +25,22 @@ export class Order {
     nullable: false,
   })
   @ApiProperty({
-    description: 'La fecha debe tener formato dd/mm/yyyy',
-    example: '15/04/2026',
+    description: 'Order date',
+    example: '2026-07-17',
   })
   date!: Date;
 
   @ManyToOne(() => User, (user) => user.orders, { nullable: false })
+  @ApiProperty({
+    description: 'Order owner',
+    type: () => User,
+  })
   user!: User;
 
   @OneToOne(() => OrderDetail, (orderDetail) => orderDetail.order)
+  @ApiProperty({
+    description: 'Order detail information',
+    type: () => OrderDetail,
+  })
   orderDetail!: OrderDetail;
 }

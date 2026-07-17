@@ -1,51 +1,50 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiPropertyOptional } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import { IsNumber, IsOptional, IsString, Length } from 'class-validator';
 
 export class UpdateUserDto {
   @IsOptional()
-  @IsString({ message: 'La dirección debe ser un texto' })
+  @IsString({ message: 'La direccion debe ser un texto' })
   @Length(3, 80, {
-    message: 'La dirección debe tener entre 3 y 80 caracteres',
+    message: 'La direccion debe tener entre 3 y 80 caracteres',
   })
-  @ApiProperty({
-    description: 'La dirección debe tener entre 3 y 80 caracteres',
-    example: 'TestAddress 123',
+  @ApiPropertyOptional({
+    description: 'Address with 3 to 80 characters',
+    example: 'Test Address 123',
   })
-  address!: string;
+  address?: string;
 
   @IsOptional()
   @Type(() => Number)
   @IsNumber(
     { allowInfinity: false, allowNaN: false },
-    { message: 'El teléfono debe ser un número' },
+    { message: 'El telefono debe ser un numero' },
   )
-  @ApiProperty({
-    description:
-      'El teléfono debe tener solo números y como mínimo 10 caracteres',
-    example: '3624123456',
+  @ApiPropertyOptional({
+    description: 'Phone number with at least 10 digits',
+    example: 3624123456,
   })
-  phone!: number;
+  phone?: number;
 
   @IsOptional()
-  @IsString({ message: 'El país debe ser un texto' })
+  @IsString({ message: 'El pais debe ser un texto' })
   @Length(5, 20, {
-    message: 'El país debe tener entre 5 y 20 caracteres',
+    message: 'El pais debe tener entre 5 y 20 caracteres',
   })
-  @ApiProperty({
-    description: 'El país debe tener entre 5 y 20 caracteres',
-    example: 'TestCountry',
+  @ApiPropertyOptional({
+    description: 'Country with 5 to 20 characters',
+    example: 'Argentina',
   })
-  country!: string;
+  country?: string;
 
   @IsOptional()
   @IsString({ message: 'La ciudad debe ser un texto' })
   @Length(5, 20, {
     message: 'La ciudad debe tener entre 5 y 20 caracteres',
   })
-  @ApiProperty({
-    description: 'La ciudad debe tener entre 5 y 20 caracteres',
-    example: 'TestCity',
+  @ApiPropertyOptional({
+    description: 'City with 5 to 20 characters',
+    example: 'Buenos Aires',
   })
-  city!: string;
+  city?: string;
 }

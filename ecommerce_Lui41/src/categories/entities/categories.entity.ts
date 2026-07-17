@@ -8,7 +8,8 @@ import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 export class Category {
   @PrimaryGeneratedColumn('uuid')
   @ApiProperty({
-    description: 'UUID V4 generado por la BBDD',
+    description: 'Category UUID v4',
+    example: '7c9e6679-7425-40de-944b-e07fc1f90ae7',
   })
   id!: string;
 
@@ -19,11 +20,15 @@ export class Category {
     unique: true,
   })
   @ApiProperty({
-    description: 'El nombre debe tener una longitud de hasta 50 caracteres',
+    description: 'Category name',
     example: 'smartphone',
   })
   name!: string;
 
   @OneToMany(() => Product, (product) => product.category)
+  @ApiProperty({
+    description: 'Products linked to the category',
+    type: () => [Product],
+  })
   products!: Product[];
 }

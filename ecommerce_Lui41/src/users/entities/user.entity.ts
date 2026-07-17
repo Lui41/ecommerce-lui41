@@ -1,4 +1,4 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiHideProperty, ApiProperty } from '@nestjs/swagger';
 import { Order } from '../../orders/entities/orders.entity';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
@@ -8,7 +8,8 @@ import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 export class User {
   @PrimaryGeneratedColumn('uuid')
   @ApiProperty({
-    description: 'UUID V4 generado por la BBDD',
+    description: 'User UUID v4',
+    example: '7c9e6679-7425-40de-944b-e07fc1f90ae7',
   })
   id!: string;
 
@@ -17,9 +18,8 @@ export class User {
     nullable: false,
   })
   @ApiProperty({
-    description:
-      'Este campo debe incluir Nombre y Apellido, y tener tener entre 3 y 80 caracteres',
-    example: 'Test 01',
+    description: 'Full name',
+    example: 'Test User',
   })
   name!: string;
 
@@ -29,7 +29,7 @@ export class User {
     unique: true,
   })
   @ApiProperty({
-    description: 'El correo debe ser una dirección de correo válida',
+    description: 'Email address',
     example: 'test01@mail.com',
   })
   email!: string;
@@ -38,11 +38,7 @@ export class User {
     length: 70,
     nullable: false,
   })
-  @ApiProperty({
-    description:
-      'La contraseña debe tener entre 8 y 15 caracteres, y contener al menos una minúscula, una mayúscula, un número y un caracter especial (!@#$%^&*)',
-    example: 'Test123!',
-  })
+  @ApiHideProperty()
   password!: string;
 
   @Column({
@@ -51,8 +47,7 @@ export class User {
     nullable: false,
   })
   @ApiProperty({
-    description:
-      'El teléfono debe tener solo números y como mínimo 10 caracteres',
+    description: 'Phone number',
     example: '3624123456',
   })
   phone!: number;
@@ -62,8 +57,8 @@ export class User {
     nullable: false,
   })
   @ApiProperty({
-    description: 'El país debe tener entre 5 y 20 caracteres',
-    example: 'Test-Country',
+    description: 'Country',
+    example: 'Argentina',
   })
   country!: string;
 
@@ -72,8 +67,8 @@ export class User {
     nullable: false,
   })
   @ApiProperty({
-    description: 'La dirección debe tener entre 3 y 80 caracteres',
-    example: 'Test-Address',
+    description: 'Address',
+    example: 'Test Address 123',
   })
   address!: string;
 
@@ -82,8 +77,8 @@ export class User {
     nullable: false,
   })
   @ApiProperty({
-    description: 'La ciudad debe tener entre 5 y 20 caracteres',
-    example: 'Test-City',
+    description: 'City',
+    example: 'Buenos Aires',
   })
   city!: string;
 
@@ -92,7 +87,7 @@ export class User {
     default: false,
   })
   @ApiProperty({
-    description: 'Define el rol del usuario, por defecto son todos "Users"',
+    description: 'True when the user is an administrator',
   })
   isAdmin!: boolean;
 
@@ -101,11 +96,14 @@ export class User {
     default: true,
   })
   @ApiProperty({
-    description:
-      'Define si es un usuario Activo o no, por defecto se inicia como "isActive = true"',
+    description: 'True when the user account is active',
   })
   isActive!: boolean;
 
   @OneToMany(() => Order, (order) => order.user)
+  @ApiProperty({
+    description: 'Orders linked to the user',
+    type: () => [Order],
+  })
   orders!: Order[];
 }
